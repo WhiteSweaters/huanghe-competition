@@ -32,8 +32,6 @@ export default class Consultation extends React.Component {
     componentDidMount() {
     }
 
-
-
     // 预约人姓名与react组件双向绑定
     handleNameChange = (e) => {
         this.setState({ name: e });

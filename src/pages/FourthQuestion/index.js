@@ -8,17 +8,18 @@ export default class FourthQuestion extends React.Component {
     static contextType = NavigationContext;
 
     state = {
-        score: this.props.route.params.score,
-        colors: ['#fff', '#fff']
+        colors: ['#fff', '#fff'],
+        reasonList: this.props.route.params.reasonList,
+        score: this.props.route.params.score
     }
 
     render() {
-        const { score, colors } = this.state;
+        const { colors, reasonList, score } = this.state;
         return (
             <View>
                 <XLNav title={"第四题"} funcText={"下一题"} submitIdea={() => {
                     this.context.navigate("FifthQuestion", {
-                        score
+                        reasonList, score
                     });
                 }} />
                 {/* 问题主体  开始 */}
@@ -35,7 +36,7 @@ export default class FourthQuestion extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     colors: ['orange', '#fff'],
-                                    score: this.props.route.params.score * 1.5
+
                                 })
                             }}
                         >
@@ -49,7 +50,7 @@ export default class FourthQuestion extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     colors: ['#fff', 'orange'],
-                                    score: this.props.route.params.score * 2
+                                    score: this.props.route.params.score + 0.5
                                 })
                             }}
                         >

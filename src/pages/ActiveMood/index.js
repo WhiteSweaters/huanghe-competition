@@ -41,7 +41,6 @@ export default class ActiveMood extends React.Component {
 
     componentDidMount() {
         this.activeMoodFirst();
-        this.getMeditationList();
     }
 
     // 获取列表数据
@@ -406,21 +405,6 @@ export default class ActiveMood extends React.Component {
                         </TouchableOpacity>
                         {/* 坐姿  结束 */}
 
-                        {/* 开始冥想  开始 */}
-                        <TouchableOpacity style={{
-                            width: 50, height: 30, borderWidth: 1, borderColor: '#339999',
-                            justifyContent: 'center', alignItems: 'center', borderRadius: 3, marginLeft: 10,
-                            backgroundColor: changePage === 3 ? '#339999' : 'transparent'
-                        }}
-                            onPress={() => {
-                                this.setState({
-                                    changePage: 3
-                                })
-                            }}
-                        >
-                            <Text style={{ color: changePage === 3 ? '#fff' : '#339999', fontSize: 12 }}>开始冥想</Text>
-                        </TouchableOpacity>
-                        {/* 开始冥想  结束 */}
                     </View>
                     {/* 顶部导航栏  结束 */}
 

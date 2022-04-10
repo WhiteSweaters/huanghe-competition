@@ -1,14 +1,81 @@
 import React from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View, FlatList, ToastAndroid, Modal } from 'react-native';
-import { Button, Icon, Input } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 import { SvgXml } from 'react-native-svg';
-import { anxiety, depression, empty, forwarding, insomnia, more, pinlun, position, zan } from '../../../../assets/svgs';
+import { beishang, chongmanxiwang, depression, deyi2, fangkong, fanzao, forwarding, jiaolv, jingju, meizizi, more, pijuan, pinlun, position, shimian, weinan, xiaoku, zan } from '../../../../assets/svgs';
 import { NavigationContext } from '@react-navigation/native';
 import axios from 'axios';
 import { BASE_URL } from '../../../../utils/BaseUrl';
 import { inject, observer } from 'mobx-react';
 
 
+const tagList = [
+    {
+        id: 1,
+        tag: '抑郁',
+        svg: depression
+    },
+    {
+        id: 2,
+        tag: '焦虑',
+        svg: jiaolv
+    },
+    {
+        id: 3,
+        tag: '惊惧',
+        svg: jingju
+    },
+    {
+        id: 4,
+        tag: '悲伤',
+        svg: beishang
+    },
+    {
+        id: 5,
+        tag: '烦躁',
+        svg: fanzao
+    },
+    {
+        id: 6,
+        tag: '失眠',
+        svg: shimian
+    },
+    {
+        id: 7,
+        tag: '疲倦',
+        svg: pijuan
+    },
+    {
+        id: 8,
+        tag: '畏难',
+        svg: weinan
+    },
+    {
+        id: 9,
+        tag: '放空',
+        svg: fangkong
+    },
+    {
+        id: 10,
+        tag: '美滋滋',
+        svg: meizizi
+    },
+    {
+        id: 11,
+        tag: '充满希望',
+        svg: chongmanxiwang
+    },
+    {
+        id: 12,
+        tag: '笑哭',
+        svg: xiaoku
+    },
+    {
+        id: 13,
+        tag: '得意',
+        svg: deyi2
+    }
+]
 @inject("RootStore")
 @observer
 export default class Community extends React.Component {
@@ -114,86 +181,32 @@ export default class Community extends React.Component {
     }
 
     render() {
-        const { queryConditions, data, modalVisible } = this.state;
-        console.log(data);
+        const { data, modalVisible } = this.state;
         return (
-            <ScrollView style={{ backgroundColor: '#fff', flex: 1 }}>
-                {/* 搜索框  开始 */}
-                <View>
-                    <Input
-                        leftIcon={<Icon name='search' />} placeholder={'输入您感兴趣的话题...'}
-                        containerStyle={{ width: '80%', alignSelf: 'center', height: 40, marginTop: 10 }}
-                        onSubmitEditing={() => {
-                            this.getCommunityInfo();
-                        }}
-                        value={queryConditions}
-                        onChangeText={this.handleChange}
-                    />
-                </View>
-                {/* 搜索框  结束 */}
-
-
+            <View style={{ backgroundColor: '#fff', flex: 1 }}>
                 {/* 选择对应话题标签  开始 */}
-                <View style={{ padding: 40, flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.toBegin();
-                            this.getCommunityInfo("抑郁");
-                            this.setState({
-                                tag: '抑郁'
-                            });
-                        }}
-                        style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#ccc' }}>
-                        <SvgXml xml={depression} width={'100%'} height={'100%'} />
-                        <Text style={{ alignSelf: 'center', fontWeight: '700' }}>#抑郁</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.toBegin();
-                            this.getCommunityInfo("失眠");
-                            this.setState({
-                                tag: '失眠'
-                            });
-                        }}
-                        style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#ccc' }}>
-                        <SvgXml xml={insomnia} width={'100%'} height={'100%'} />
-                        <Text style={{ alignSelf: 'center', fontWeight: '700' }}>#失眠</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.toBegin();
-                            this.getCommunityInfo("焦虑");
-                            this.setState({
-                                tag: '焦虑'
-                            });
-                        }}
-
-                        style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#ccc' }}>
-                        <SvgXml xml={anxiety} width={'100%'} height={'100%'} />
-                        <Text style={{ alignSelf: 'center', fontWeight: '700' }}>#焦虑</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => {
-                            this.toBegin();
-                            this.getCommunityInfo("放空");
-                            this.setState({
-                                tag: '放空'
-                            });
-                        }}
-                        style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: '#ccc' }}>
-                        <SvgXml xml={empty} width={'100%'} height={'100%'} />
-                        <Text style={{ alignSelf: 'center', fontWeight: '700' }}>#放空</Text>
-                    </TouchableOpacity>
-                </View>
+                <ScrollView style={{ padding: 20, height: 140 }} horizontal>
+                    {tagList.map((value, index) => <TouchableOpacity key={index} onPress={() => {
+                        this.toBegin();
+                        this.getCommunityInfo(value.tag);
+                        this.setState({
+                            tag: value.tag
+                        })
+                    }}
+                        style={{ width: 60, height: 60, borderRadius: 30, marginRight: 15 }}
+                    >
+                        <SvgXml xml={value.svg} width={'100%'} height={'100%'} />
+                        <Text style={{ alignSelf: 'center', fontWeight: '700' }}>#{value.tag}</Text>
+                    </TouchableOpacity>)}
+                </ScrollView>
                 {/* 选择对应话题标签  结束 */}
 
                 {/* 动态主体  开始 */}
                 <>
                     <FlatList
-                        onEndReached={this.onEndReached}
+                        onEndReached={() => {
+                            this.onEndReached();
+                        }}
                         onEndReachedThreshold={0.1}
                         data={data ? data : ''}
                         renderItem={({ item }) => <View style={{ flexDirection: 'row', padding: 20 }}>
@@ -201,7 +214,6 @@ export default class Community extends React.Component {
                             <View>
                                 {/* 用户头像  开始 */}
                                 <TouchableOpacity onPress={() => {
-                                    console.log(item.uid);
                                     this.context.navigate("Others", {
                                         uid: item.uid
                                     })
@@ -243,17 +255,17 @@ export default class Community extends React.Component {
                                 </View>
 
                                 {/* 动态内容  开始 */}
-                                <ScrollView horizontal style={{ marginTop: 10 }}>
-                                    {item.imageList.map((v, i) => <Image key={i} style={{
-                                        width: 100,
-                                        height: 150,
-                                        marginRight: 5
-                                    }} source={{ uri: v }} />)}
-
-
-                                </ScrollView>
-                                <Text style={{ marginTop: 5, fontWeight: '700', fontSize: 16 }}>{item.content}</Text>
-                                {/* 动态内容  结束 */}
+                                <View style={{ marginTop: 5, width: '80%' }}>
+                                    <Text style={{ fontWeight: '700', fontSize: 16 }}>{item.content.replace(/\\n/g, '\n')}</Text>
+                                    <ScrollView horizontal style={{ marginTop: 10 }}>
+                                        {item.imageList.map((v, i) => <Image key={i} style={{
+                                            width: 150,
+                                            height: 150,
+                                            marginRight: 5
+                                        }} source={{ uri: v }} />)}
+                                    </ScrollView>
+                                    {/* 动态内容  结束 */}
+                                </View>
 
                                 {/* 相关操作  开始 */}
                                 <View style={{ marginTop: 15, flexDirection: 'row' }}>
@@ -281,10 +293,10 @@ export default class Community extends React.Component {
                                 </View>
                                 {/* 相关操作  结束 */}
 
-                                <View style={{ width: "100%", backgroundColor: '#eee', borderRadius: 4 }}>
+                                <View style={{ width: "90%", backgroundColor: '#eee', borderRadius: 4 }}>
                                     <FlatList
                                         data={item.commentList ? item.commentList : ''}
-                                        renderItem={({ item }) => <View style={{ flexDirection: 'row' }}>
+                                        renderItem={({ item }) => <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
                                             <Text style={{ color: '#003366', fontWeight: '700' }}>{item.nickname}：</Text>
                                             <Text>{item.content}</Text>
                                         </View>}
@@ -344,7 +356,7 @@ export default class Community extends React.Component {
                 </TouchableOpacity>
                 {/* 添加动态  结束 */}
 
-            </ScrollView>
+            </View>
         );
     }
 }

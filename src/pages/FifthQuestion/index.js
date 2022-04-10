@@ -10,31 +10,21 @@ export default class FifthQuestion extends React.Component {
     static contextType = NavigationContext;
 
     state = {
-        score: this.props.route.params.score,
         colors: ['#fff', '#fff', '#fff'],
-        result:''
+        result: '',
+        reasonList: this.props.route.params.reasonList,
+        score: this.props.route.params.score
     }
 
-    // 提交问卷
-    submitQuestionnaire = (score) => {
-        if (score > 0 && score < 100) {
-            return 1;
-        } else if (score >= 100 && score < 300) {
-            return 2;
-        } else if (score >= 300) {
-            return 3;
-        }
-    }
+
 
     render() {
-        const { colors ,result,score} = this.state;
-        console.log(score);
+        const { colors, reasonList, score } = this.state;
         return (
             <View>
                 <XLNav title={"第五题"} funcText={"提交"} submitIdea={() => {
-                    let result = this.submitQuestionnaire(score);
                     this.context.navigate("Result", {
-                        result
+                        reasonList, score
                     });
                 }} />
                 {/* 问题主体  开始 */}
@@ -51,7 +41,7 @@ export default class FifthQuestion extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     colors: ['orange', '#fff', '#fff'],
-                                    score: this.props.route.params.score * 1
+                                    score: this.props.route.params.score + 0.5
                                 })
                             }}
                         >
@@ -65,7 +55,8 @@ export default class FifthQuestion extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     colors: ['#fff', 'orange', '#fff'],
-                                    score: this.props.route.params.score * 2
+                                    score: this.props.route.params.score + 1
+
                                 })
                             }}
                         >
@@ -79,7 +70,7 @@ export default class FifthQuestion extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     colors: ['#fff', '#fff', 'orange'],
-                                    score: this.props.route.params.score * 3
+                                    score: this.props.route.params.score + 1.5
                                 })
                             }}
                         >

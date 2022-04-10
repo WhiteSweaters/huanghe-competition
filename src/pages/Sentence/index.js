@@ -44,10 +44,10 @@ export default class Sentence extends React.Component {
                     dot={
                         <View style={{ backgroundColor: 'transparent' }}>
                         </View>}>
-                    {data.map((value, index) => <View key={index}>
+                    {data.map((value, index) => <View key={index} style={{ backgroundColor: '#333', height: '100%' }}>
                         <Image source={{ uri: value.image }} style={{ width: '100%', height: 300 }}></Image>
-                        <Text style={{ alignSelf: 'center', fontSize: 20 ,textAlign:'center',lineHeight:50}}>{value.content.replace(/\\n/g, '\n')}</Text>
-                        <Text style={{ alignSelf: 'center', fontSize: 16 ,textAlign:'center'}}>{value.author}</Text>
+                        <Text style={{ alignSelf: 'center', fontSize: 20, textAlign: 'center', lineHeight: 50, color: '#fff' }}>{value.content.replace(/\\n/g, '\n')}</Text>
+                        <Text style={{ alignSelf: 'center', fontSize: 16, textAlign: 'center', color: '#fff' }}>{value.author}</Text>
                     </View>)}
                 </Swiper>
             </View>

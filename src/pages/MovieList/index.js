@@ -1,77 +1,40 @@
 import React from 'react';
-import { ImageBackground, StatusBar, Text, View } from 'react-native';
-import Swiper from 'react-native-swiper';
-import dateToString from '../../utils/dateToString';
+import { Text, View, StyleSheet } from 'react-native';
+import Video from 'react-native-video';
 
 export default class MovieList extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                <StatusBar backgroundColor={'transparent'} translucent={true} />
-                <Swiper>
-                    <ImageBackground source={require('../../assets/images/gump.png')}
-                        style={{ width: '100%', height: '100%', position: 'relative' }}
-                        imageStyle={{ width: '100%', height: '100%' }}
-                    >
-                        <Text style={{
-                            position: 'absolute', bottom: 150, color: '#fff',
-                            fontWeight: '700', marginHorizontal: 30, fontSize: 16
-                        }}>阿甘正传</Text>
-                        <Text style={{
-                            position: 'absolute', bottom: 100, color: '#fff',
-                            marginHorizontal: 30, fontSize: 14, lineHeight: 20
-                        }}>
-                            也许我们这些聪明人,脑袋里能装的目标太多,所以忘了执着。
-                        </Text>
-                        <Text style={{
-                            position: 'absolute', bottom: 70, color: '#fff',
-                            marginHorizontal: 30, fontSize: 12, lineHeight: 20
-                        }}>{dateToString.dateToString(new Date())}</Text>
-                    </ImageBackground>
-                    <View>
-                        <ImageBackground source={require('../../assets/images/gump.png')}
-                            style={{ width: '100%', height: '100%', position: 'relative' }}
-                            imageStyle={{ width: '100%', height: '100%' }}
-                        >
-                            <Text style={{
-                                position: 'absolute', bottom: 150, color: '#fff',
-                                fontWeight: '700', marginHorizontal: 30, fontSize: 16
-                            }}>阿甘正传</Text>
-                            <Text style={{
-                                position: 'absolute', bottom: 100, color: '#fff',
-                                marginHorizontal: 30, fontSize: 14, lineHeight: 20
-                            }}>
-                                也许我们这些聪明人,脑袋里能装的目标太多,所以忘了执着。
-                            </Text>
-                            <Text style={{
-                                position: 'absolute', bottom: 70, color: '#fff',
-                                marginHorizontal: 30, fontSize: 12, lineHeight: 20
-                            }}>{dateToString.dateToString(new Date())}</Text>
-                        </ImageBackground>
-                    </View>
-                    <View>
-                        <ImageBackground source={require('../../assets/images/gump.png')}
-                            style={{ width: '100%', height: '100%', position: 'relative' }}
-                            imageStyle={{ width: '100%', height: '100%' }}
-                        >
-                            <Text style={{
-                                position: 'absolute', bottom: 150, color: '#fff',
-                                fontWeight: '700', marginHorizontal: 30, fontSize: 16
-                            }}>阿甘正传</Text>
-                            <Text style={{
-                                position: 'absolute', bottom: 100, color: '#fff',
-                                marginHorizontal: 30, fontSize: 14, lineHeight: 20
-                            }}>
-                                也许我们这些聪明人,脑袋里能装的目标太多,所以忘了执着。
-                            </Text>
-                            <Text style={{
-                                position: 'absolute', bottom: 70, color: '#fff',
-                                marginHorizontal: 30, fontSize: 12, lineHeight: 20
-                            }}>{dateToString.dateToString(new Date())}</Text>
-                        </ImageBackground>
-                    </View>
-                </Swiper>
+            <View style={{ flex: 1, backgroundColor: '#000', position: 'relative' }}>
+                {/* 播放短视频  开始 */}
+                <Video
+                    source={{uri:'http://whitesweater.info/test2.mp4'}}
+                    ref={(ref) => {
+                        this.player = ref
+                    }}
+                    onBuffer={this.onBuffer}
+                    onError={this.videoError}
+                    style={styles.backgroundVideo}
+                    resizeMode={'contain'}
+                />
+                {/* 播放短视频  结束 */}
+
+                {/* 短视频文案  开始 */}
+                <View style={{ position: 'absolute', top: 600, padding: 20 }}>
+                    <Text style={{ color: '#fff' }}>人生就像是一盒巧克力，你永远都不知道接下来是什么口味。</Text>
+                </View>
+                {/* 短视频文案  结束 */}
             </View>
         );
     }
 }
+const styles = StyleSheet.create({
+    backgroundVideo: {
+        position: 'absolute',
+        top: '5%',
+        left: 0,
+        bottom: 0,
+        right: 0,
+        width: '100%'
+    },
+});

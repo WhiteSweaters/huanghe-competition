@@ -51,11 +51,11 @@ export default class QuestionDetails extends React.Component {
                             data={queAndAnsList}
                             renderItem={({ item }) => <View style={{ marginTop: 50 }}>
                                 <View style={{ flexDirection: 'row' }}>
-                                    <Text style={{ fontSize: 18, fontWeight: '700', color: '#000' }}>Q：</Text>
+                                    {/* <Text style={{ fontSize: 18, fontWeight: '700', color: '#000' }}>Step</Text> */}
                                     <Text style={{ fontSize: 18, fontWeight: '700', color: '#000' }}>{item.question}</Text>
                                 </View>
                                 <View style={{ marginTop: 15, flexDirection: 'row' }}>
-                                    <Text style={{ fontSize: 18, fontWeight: '700', color: '#000' }}>A：</Text>
+                                    {/* <Text style={{ fontSize: 18, fontWeight: '700', color: '#000' }}>A：</Text> */}
                                     <Text>{item.answer.replace(/\\n/g, '\n')}</Text>
                                 </View>
                             </View>}

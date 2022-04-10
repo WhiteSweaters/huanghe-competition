@@ -47,6 +47,9 @@ import QuestionDetails from './src/pages/QuestionDetails';
 import MovieList from './src/pages/MovieList';
 import Sentence from './src/pages/Sentence';
 import Journalism from './src/pages/Journalism';
+import Diary from './src/pages/Diary';
+import DiaryContent from './src/pages/DiaryContent';
+import Meditation from './src/pages/Meditation';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,6 +63,7 @@ class App extends React.Component {
     // 高德3D初始化
     AMap.init();
   }
+  
 
   render() {
     return (
@@ -226,6 +230,18 @@ class App extends React.Component {
             {/* 深度报道  开始 */}
             <Stack.Screen name='Journalism' component={Journalism}/>
             {/* 深度报道  结束 */}
+            
+            {/* 写日记  开始 */}
+            <Stack.Screen name='Diary' component={Diary}/>
+            {/* 写日记  结束 */}
+
+            {/* 看日记  开始 */}
+            <Stack.Screen name='DiaryContent' component={DiaryContent}/>
+            {/* 看日记  结束 */}
+
+            {/* 冥想练习  开始 */}
+            <Stack.Screen name='Meditation' component={Meditation}/>
+            {/* 冥想练习  结束 */}
 
           </Stack.Navigator>
         </NavigationContainer>

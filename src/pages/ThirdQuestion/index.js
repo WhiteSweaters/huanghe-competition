@@ -1,6 +1,6 @@
 import { NavigationContext } from '@react-navigation/native';
 import React from 'react';
-import { Text, View ,TouchableOpacity} from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import XLNav from '../TabBar/XLNav';
 
 export default class ThirdQuestion extends React.Component {
@@ -8,18 +8,19 @@ export default class ThirdQuestion extends React.Component {
     static contextType = NavigationContext;
 
     state = {
-        score: this.props.route.params.score,
-        colors:['#fff','#fff','#fff','#fff','#fff']
+        colors: ['#fff', '#fff', '#fff', '#fff', '#fff'],
+        reasonList: this.props.route.params.reasonList,
+        score: this.props.route.params.score
     }
 
     render() {
-        const { score ,colors} = this.state;
+        const { colors, reasonList,score } = this.state;
 
         return (
             <View>
                 <XLNav title={"第三题"} funcText={"下一题"} submitIdea={() => {
                     this.context.navigate("FourthQuestion", {
-                        score
+                        reasonList,score
                     });
                 }} />
                 {/* 问题主体  开始 */}
@@ -36,7 +37,7 @@ export default class ThirdQuestion extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     colors: ['orange', '#fff', '#fff', '#fff', '#fff'],
-                                    score: this.props.route.params.score * 1.2
+                                    score: this.props.route.params.score + 0.5
                                 })
                             }}
                         >
@@ -50,7 +51,7 @@ export default class ThirdQuestion extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     colors: ['#fff', 'orange', '#fff', '#fff', '#fff'],
-                                    score: this.props.route.params.score * 2
+                                    score: this.props.route.params.score + 1
                                 })
                             }}
                         >
@@ -64,7 +65,7 @@ export default class ThirdQuestion extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     colors: ['#fff', '#fff', 'orange', '#fff', '#fff'],
-                                    score: this.props.route.params.score * 1.5
+                                    score: this.props.route.params.score + 1.5
                                 })
                             }}
                         >
@@ -78,7 +79,7 @@ export default class ThirdQuestion extends React.Component {
                             onPress={() => {
                                 this.setState({
                                     colors: ['#fff', '#fff', '#fff', 'orange', '#fff'],
-                                    score: this.props.route.params.score * 2
+                                    score: this.props.route.params.score + 2
                                 })
                             }}
                         >
@@ -91,7 +92,8 @@ export default class ThirdQuestion extends React.Component {
                         }}
                             onPress={() => {
                                 this.setState({
-                                    colors: ['#fff', '#fff', '#fff', '#fff', 'orange']
+                                    colors: ['#fff', '#fff', '#fff', '#fff', 'orange'],
+                                    score: this.props.route.params.score
                                 })
                             }}
                         >

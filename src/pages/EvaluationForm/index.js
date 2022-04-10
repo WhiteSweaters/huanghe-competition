@@ -13,7 +13,7 @@ export default class EvaluationForm extends React.Component {
     state = {
         btnData: [], //按钮包含的信息
         btnStatus: [100, 101, 102], //用于更改按钮的背景颜色，初始值防止空指针异常
-        score: 0
+        reasonList: []//选项的内容数组，测评页面通过选项返回对应内容
     }
 
     componentDidMount() {
@@ -41,31 +41,29 @@ export default class EvaluationForm extends React.Component {
     }
 
     render() {
-        const { btnData, btnStatus, score } = this.state;
-        console.log(score);
+        const { btnData, btnStatus, reasonList } = this.state;
         return (
             <View>
                 <XLNav title={"第一题"} funcText={"下一题"} submitIdea={() => {
-                  this.context.navigate("SecondQuestion",{
-                      score
-                  });  
+                    this.context.navigate("SecondQuestion", {
+                        reasonList
+                    });
                 }} />
                 <View style={{ padding: 20 }}>
-                    <Text style={{ fontSize: 16,fontWeight:'700' }}>你寻求心理咨询帮助的原因是什么？（多选）</Text>
+                    <Text style={{ fontSize: 16, fontWeight: '700' }}>你寻求心理咨询帮助的原因是什么？（多选）</Text>
                 </View>
 
                 {/* 各种选项  开始 */}
-                <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'flex-start', paddingLeft: 0 }}>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignSelf: 'center', width: '90%' }}>
                     {btnData.map((v, i) =>
-
                         <TouchableOpacity key={i} style={{
-                            width: 80, height: 25, borderRadius: 3, backgroundColor: this.isExit(i) ? 'orange' : '#fff',
+                            width: 100, height: 25, borderRadius: 3, backgroundColor: this.isExit(i) ? 'orange' : '#fff',
                             alignItems: 'center', marginTop: 20, marginLeft: 10, justifyContent: 'center'
                         }}
                             onPress={() => {
                                 this.setState({
                                     btnStatus: [...btnStatus, i],
-                                    score: score + v.score
+                                    reasonList: [...reasonList, v]
                                 })
                             }}>
                             <Text>{v.tag}</Text>

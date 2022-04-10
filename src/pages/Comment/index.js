@@ -21,13 +21,14 @@ export default class Comment extends React.Component {
     }
 
     submitIdea = async () => {
-        const {content} = this.state;
+        const { content } = this.state;
         await axios.post(BASE_URL + "/community/uploadComment", {
             cid: this.props.route.params.cid + '',
             uid: this.props.route.params.uid + '',
             content: content
         }).then(res => {
             ToastAndroid.show(res.data.errMsg, 2000);
+            this.context.navigate("Community", { isRefresh: true })
         })
     }
 
@@ -52,7 +53,7 @@ export default class Comment extends React.Component {
                     placeholderTextColor={'#c7c7c7'}
                     underlineColorAndroid={'transparent'}
                 />
-               
+
             </View>
         );
     }

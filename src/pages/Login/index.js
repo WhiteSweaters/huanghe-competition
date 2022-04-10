@@ -1,6 +1,6 @@
 import axios from "axios";
-import React from "react";
-import { View, Dimensions, Text, StatusBar, Image, TextInput, ToastAndroid, StyleSheet } from "react-native";
+import React, { useRef, useEffect } from "react";
+import { View, Dimensions, Text, StatusBar, Image, TextInput, ToastAndroid, StyleSheet, ImageBackground, Animated } from "react-native";
 import { Button } from "react-native-elements";
 import validate from "../../utils/validate";
 import { CodeField, Cursor } from 'react-native-confirmation-code-field';
@@ -29,12 +29,36 @@ const styles = StyleSheet.create({
         borderColor: '#000',
     },
 });
+const FadeInView = (props) => {
+    const fadeAnim = useRef(new Animated.Value(0)).current  // 透明度初始值设为0
+
+    React.useEffect(() => {
+        Animated.timing(                  // 随时间变化而执行动画
+            fadeAnim,                       // 动画中的变量值
+            {
+                toValue: 1,                   // 透明度最终变为1，即完全不透明
+                duration: 10000,              // 让动画持续一段时间
+            }
+        ).start();                        // 开始执行动画
+    }, [fadeAnim])
+
+    return (
+        <Animated.View                 // 使用专门的可动画化的View组件
+            style={{
+                ...props.style,
+                opacity: fadeAnim,         // 将透明度绑定到动画变量值
+            }}
+        >
+            {props.children}
+        </Animated.View>
+    );
+}
 
 @inject("RootStore")
 @observer
 export default class Login extends React.Component {
 
-    componentDidMount(){
+    componentDidMount() {
         console.log(baseUrl);
     }
 
@@ -130,7 +154,7 @@ export default class Login extends React.Component {
                 this.props.navigation.navigate("Register");
             } else {
                 // 2.如果用户是老用户 则直接跳转至首页
-                ToastAndroid.show("欢迎回来！",2000)
+                ToastAndroid.show("欢迎回来！", 2000)
                 this.props.navigation.navigate("TabBar");
             }
 
@@ -143,7 +167,7 @@ export default class Login extends React.Component {
     renderSendMessage = () => {
         {/**发送短信以及填写验证码页面切换 开始 */ }
         return <View style={{
-            padding: 20
+            padding: 20,
         }}>
             {/**输入手机号登陆/注册 开始 */}
             <View>
@@ -243,7 +267,8 @@ export default class Login extends React.Component {
                         justifyContent: 'center',
                         width: 200,
                         height: 40,
-                        borderRadius: 20
+                        borderRadius: 20,
+
                     }}
                     onPress={this.sendMessage} />
             </View>
@@ -255,22 +280,33 @@ export default class Login extends React.Component {
     render() {
 
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, position: 'relative' }}>
                 {/**状态栏 开始 */}
                 <StatusBar backgroundColor={"transparent"} translucent={true}></StatusBar>
                 {/**状态栏 结束 */}
 
                 {/**登录背景图片 开始 */}
-                <View>
+                {/* <View>
                     <Image style={{
                         width: '100%',
-                        height: 240
+                        height: '100%',
+                        position: 'absolute'
                     }} source={require('../../assets/images/login.jpg')}></Image>
-                </View>
+                </View> */}
                 {/**登录背景图片 结束 */}
-
-                {this.state.toValid ? this.renderLogin() : this.renderSendMessage()}
-
+                <ImageBackground source={require('../../assets/images/login.jpg')}
+                    style={{ width: '100%', height: '100%' }}
+                >
+                </ImageBackground>
+                <View style={{ position: 'absolute', width: '100%', top: 300 }}>
+                    {this.state.toValid ? this.renderLogin() : this.renderSendMessage()}
+                </View>
+                <View style={{ position: 'absolute', top: 600, padding: 20 }}>
+                    <FadeInView>
+                        <Text style={{ fontSize: 18, textAlign: 'center', color: '#000' }}>愿你千山暮雪 海棠依旧</Text>
+                        <Text style={{ fontSize: 18, textAlign: 'center', color: '#000' }}>不为岁月惊扰 平淡忧愁</Text>
+                    </FadeInView>
+                </View>
             </View>
         )
     }

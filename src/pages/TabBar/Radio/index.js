@@ -49,8 +49,6 @@ export default class Radio extends React.Component {
         this.getCards();
     }
 
-
-
     // 发送请求到后台，获取卡片数据
     getCards = async () => {
         const res = await axios.get(BASE_URL + "/radio/showCardList?currentPage=" + this.params.currentPage + "&pageSize=" + this.params.pageSize);
@@ -104,17 +102,22 @@ export default class Radio extends React.Component {
                                     <View style={{ padding: 20 }}>
                                         {/* 标题 开始 */}
                                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                                            <Text style={{ fontSize: 20, fontWeight: '700' }}>{card ? card.title : ''}</Text>
-                                            <Text>时长:{card ? card.currentTime + 's' : ''}</Text>
+                                            <Text style={{ fontSize: 16, fontWeight: '700' }}>{card ? card.title : ''}</Text>
                                         </View>
                                         {/* 标题 结束 */}
-                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                        <View style={{}}>
                                             {/* 作者 开始 */}
                                             <Text>作者：{card ? card.nickname : ''}</Text>
                                             {/* 作者 结束 */}
                                             {/* 文案  开始 */}
-                                            <Text>{card ? card.copy : ''}</Text>
                                             {/* 文案  结束 */}
+                                        </View>
+                                        <View style={{ flexDirection: 'row', width: '90%' }}>
+                                            <Text>简介：</Text>
+                                            <Text>{card ? card.copy : ''}</Text>
+                                        </View>
+                                        <View>
+                                            <Text>时长：{card ? card.currentTime + 's' : ''}</Text>
                                         </View>
                                     </View>
                                     {/* 音频介绍  结束 */}

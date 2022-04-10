@@ -15,13 +15,10 @@ const Tab = createBottomTabNavigator();
 
 @inject("RootStore")
 @observer
-export default class TabBa extends React.Component {
-
-
+export default class TabBar extends React.Component {
     async componentDidMount() {
        await JMessage.login("JGuser" + this.props.RootStore.uid, this.props.RootStore.telephone);
     }
-
     render() {
         return (
             <Tab.Navigator screenOptions={
@@ -49,7 +46,7 @@ export default class TabBa extends React.Component {
                 <Tab.Screen name="首页" component={Home} />
                 <Tab.Screen name="咨询" component={Consulting} />
                 <Tab.Screen name="互助" component={Cooperation} />
-                <Tab.Screen name="电台" component={Radio} />
+                {/* <Tab.Screen name="电台" component={Radio} /> */}
                 <Tab.Screen name="我的" component={My} />
             </Tab.Navigator>
         );
